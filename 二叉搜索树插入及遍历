@@ -1,0 +1,82 @@
+// 二叉搜索树（BST）Binary Search Tree
+// 根节点比左边大，比右边小
+
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct node{
+	int data;
+	struct node* left;
+	struct node* right;
+}Node;
+typedef struct tree{
+	Node* root;//定义根节点；
+}Tree;
+void insert(Tree* tree,int value)//插入元素 
+{
+	Node* node=(Node*)malloc(sizeof(Node));
+	node->data=value;
+	node->left=NULL;
+	node->right=NULL;
+	
+	if(tree->root==NULL)
+	{
+		tree->root=node;
+	}
+	else {
+		Node* temp=tree->root;
+		while(temp!=NULL){
+			if(value<temp->data)
+			{
+				if(temp->left==NULL)
+				{
+					temp->left=node;
+					return ;
+				}
+				else {
+					temp=temp->left;
+				}
+				
+			}
+			else {
+				if(temp->right==NULL)
+				{
+					temp->right=node;
+					return ;
+				}
+				else {
+					temp=temp->right;
+				}
+				
+			}
+		}
+	}
+}
+void inorder(Node *node)//中序遍历 
+{
+	if(node!=NULL)
+	{
+		inorder(node->left);
+		cout<<node->data<<" ";
+		inorder(node->right);
+	}
+}
+int main()
+{
+	int n;
+	cin>>n;
+ 	int a[n];
+	for(int i=0;i<n;i++)
+	{
+		cin>>a[i];
+	}
+	Tree tree;
+	tree.root=NULL;
+	for(int i=0;i<n;i++)
+	{
+		insert(&tree,a[i]);
+	}
+	inorder(tree.root); 
+	
+	
+	return 0;
+}
